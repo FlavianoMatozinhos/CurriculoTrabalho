@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{%block conteudo%}
+  <h1 class="mt-5">{{ contato.nome }} {{ contato.sobrenome }}</h1>
+  <dl>
+  <table class="table table-striped">
+      <thead>
+      <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">Email</th>
+          <th scope="col">data_criacao</th>
+          <th scope="col">categoria</th>
+          <th scope="col">Descrição</th>
+        </tr>
+        <tr>
+          <th scope="col">{{ contato.id }}</th>
+          <th scope="col">{{ contato.telefone }}</th>
+          <th scope="col">{{ contato.email }}</th>
+          <th scope="col">{{ contato.data_criacao|date:'d/m/Y H:i:s' }}</th>
+          <th scope="col">{{ contato.categoria }}</th>
+          <th scope="col">{{ contato.descricao }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contato in contatos %}
+          <tr>
+            <td>{{ contato.id }}</td>
+            <td>
+              <a href="{% url 'ver_contato' contato.id %}">{{ contato.nome }}</a>
+            </td>
+            <td>{{ contato.sobrenome }}</td>
+            <td>{{ contato.telefone }}</td>
+            <td>{{ contato.categoria }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+    {% if contato.foto %}
+      <p>
+        <img src="{{ contato.foto.url }}" style="max-width: 500px; height: auto;">
+      </p>
+    {% endif %}
+{%endblock%}
